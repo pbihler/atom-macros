@@ -3,7 +3,7 @@
   "main": "./lib/macros",
   "version": "0.0.0",
   "description": "Quickly define macros and other scripts to run",
-  "repository": "https://github.com/atom/macros",
+  "repository": "https://github.com/pbihler/atom-macros",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
