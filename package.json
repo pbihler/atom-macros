@@ -1,7 +1,7 @@
 {
-  "name": "macros",
+  "name": "atom-macros",
   "main": "./lib/macros",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "Quickly define macros and other scripts to run",
   "repository": "https://github.com/atom/macros",
   "license": "MIT",
