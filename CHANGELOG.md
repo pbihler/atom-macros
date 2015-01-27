@@ -1,3 +1,5 @@
+## 0.2.0 - Bugfix in sample
+
 ## 0.2.0 - Predefined methods
 * Macros are added to the menu
 * Now several methods are predefined as shortcuts:

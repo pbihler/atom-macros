@@ -44,6 +44,6 @@ this.helloFromJS.hideIcon = true; // don't show this on the toolbar
 
 
 @openThisFile = ->
-  dispatchWorkspaceCommand 'macros:open-macros'
+  dispatchWorkspaceCommand 'macros:edit-macros'
 
 @openThisFile.title = 'Edit Macros'

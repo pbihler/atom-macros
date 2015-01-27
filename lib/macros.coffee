@@ -9,6 +9,7 @@ PathWatcher = require 'pathwatcher'
 
 MACROS_FILE = 'macros.coffee'
 PREPEND_FILE = 'prepend.coffee'
+SAMPLE_FILE = 'sample-macros.coffee'
 
 module.exports = Macros =
   subscriptions: null
@@ -179,7 +180,7 @@ module.exports = Macros =
 
 
   _createTemplate: (path) ->
-    content = FS.readFileSync(PATH.resolve(__dirname,'../sample-macros.coffee'))
+    content = FS.readFileSync(PATH.resolve(__dirname,SAMPLE_FILE))
     FS.writeFileSync(path,content)
 
   _getMacros: (path) ->
