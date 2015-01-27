@@ -1,0 +1,16 @@
+{
+  "name": "macros",
+  "main": "./lib/macros",
+  "version": "0.0.1",
+  "description": "Quickly define macros and other scripts to run",
+  "repository": "https://github.com/atom/macros",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+    "coffee-script": "^1.8",
+    "eval": "^0.1.0",
+    "pathwatcher": "^2.6.1"
+  }
+}

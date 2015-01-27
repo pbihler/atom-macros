@@ -1,0 +1,19 @@
+# See https://atom.io/docs/latest/creating-a-package#menus for more details
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'macros'
+      'submenu': [
+        {
+          'label': 'Open macros definition'
+          'command': 'macros:open-macros'
+        }
+        {
+          'label': 'Reload macros'
+          'command': 'macros:reload-macros'
+        }
+      ]
+    ]
+  }
+]
