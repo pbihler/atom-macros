@@ -3,11 +3,23 @@
   {
     'label': 'Packages'
     'submenu': [
-      'label': 'macros'
+      'label': 'Macros'
       'submenu': [
         {
-          'label': 'Open macros definition'
-          'command': 'macros:open-macros'
+          'label': 'User-defined macros'
+          'submenu': [
+            {
+              'label': 'None defined'
+              'visible':false
+            }
+          ]
+        }
+        {
+          'type': 'separator'
+        }
+        {
+          'label': 'Edit macro definitions'
+          'command': 'macros:edit-macros'
         }
         {
           'label': 'Reload macros'

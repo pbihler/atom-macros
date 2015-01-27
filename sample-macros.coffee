@@ -26,7 +26,6 @@ this.helloFromJS.hideIcon = true; // don't show this on the toolbar
 `
 
 # You can also call external commands:
-exec = require('child_process').exec
 
 @runShellCommand = ->
   child = exec 'ls', (error, stdout, stderr) ->
@@ -39,16 +38,12 @@ exec = require('child_process').exec
 
 
 @openBrowser = ->
-  url = 'https://atom.io'
-  if process.platform == 'win32'
-    exec "start #{url}"
-  else
-    exec "open #{url}"
+  open 'https://atom.io/packages/atom-macros'
 
 @openBrowser.icon = 'ion-earth'
 
 
 @openThisFile = ->
-  atom.commands.dispatch atom.views.getView(atom.workspace), 'macros:open-macros'
+  dispatchWorkspaceCommand 'macros:open-macros'
 
 @openThisFile.title = 'Edit Macros'

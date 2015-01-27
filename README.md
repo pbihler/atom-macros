@@ -1,12 +1,19 @@
-# The macros package
+# The atom-macros package
 
 Make atom really hackable. Quickly, without writing a package...
 
-Fast and dynamic extension of atoms command palette. Adds all methods found in the `.atom/macros.coffee` file as atom commands.
+Fast and dynamic extension of atom's command palette. Adds all methods defined by you on `this` in the `.atom/macros.coffee` file as atom commands: They can be executed using the command palette (`Shift-Cmd-P`) as `Macro: <Your Method Name>`, from the Menu `Packages`>`Macros`>`User-defined macros`, or add a shortcut in your kaymaps file:
+```coffee
+'atom-workspace':
+  'ctrl-alt-shift-O': 'macros:openBrowser'
+```
 
+## Automatic toolbar generation
 Install the [toolbar module](https://atom.io/packages/toolbar) for automatic toolbar buttons.
 
-Example of a `macros.coffee`:
+## Example
+
+Example of a `macros.coffee` file:
 
 ```coffee
 @helloConsole = ->
@@ -27,7 +34,6 @@ this.helloFromJS.hideIcon = true // don't show this on the toolbar
 `
 
 # You can also call external commands:
-exec = require('child_process').exec
 
 @runShellCommand = ->
   child = exec 'ls', (error, stdout, stderr) ->
@@ -40,13 +46,60 @@ exec = require('child_process').exec
 
 
 @openBrowser = ->
-  url = 'https://atom.io'
-  if process.platform == 'win32'
-    exec "start #{url}"
-  else
-    exec "open #{url}"
+  open 'https://atom.io/packages/atom-macros'
 
 @openBrowser.icon = 'ion-earth'
 ```
 
 The makro definitions in atom are updated as soon as the file is edited.
+
+### Predefined methods
+
+You can use these shortcuts in your macros:
+
+#### `exec(command, [options], callback)`/`spawn(command, [args], [options])`
+From [`child_process`](http://nodejs.org/api/child_process.html).
+
+#### `open(path)`
+Calls `open` on Mac and `start` on Windows systems.
+
+#### `getActiveTextEditor()`
+Returns atom's active text editor.
+
+#### `getCurrentFilePath()`
+Returns the file path of the active pane.
+```coffee
+@openInDefaultEditor = ->
+  open getCurrentFilePath()
+```
+
+#### `getCurrentFilePathRelative()`
+Returns the file path of the active pane relatively to the current project.
+
+#### `getCurrentProjectPath()`
+Returns the current project path
+```coffee
+@openInExplorer = ->
+  open getCurrentProjectPath()
+```
+
+#### `dispatchEditorCommand(command)`
+Dispatches a command on `'atom-text-editor'`
+```coffee
+@lowercaseAll = ->
+  dispatchEditorCommand 'core:select-all'
+  dispatchEditorCommand 'editor:lower-case'
+```
+
+#### `dispatchWorkspaceCommand(command)`
+Dispatches a command on `'atom-workspace'`
+```coffee
+@editMacros = ->
+  dispatchWorkspaceCommand 'macros:edit-macros'
+  ```
+
+### Predefined variables
+* `console`
+* `process`
+* `atom`
+* `subscriptions` - A [CompositeDisposable](https://atom.io/docs/api/latest/CompositeDisposable), which is disposed before the macros are reloaded.
