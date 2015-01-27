@@ -4,7 +4,7 @@ Make atom really hackable.
 
 Fast and dynamic extension of atoms command palette. Adds all methods found in the `.atom/macros.coffee` file as atom commands.
 
-Install the (toolbar module)[https://atom.io/packages/toolbar] for automatic toolbar buttons.
+Install the [toolbar module](https://atom.io/packages/toolbar) for automatic toolbar buttons.
 
 Example of a `macros.coffee`:
 
