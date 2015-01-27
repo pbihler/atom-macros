@@ -1,3 +1,13 @@
+# All functions defined on "this" are available as atom commands.
+#
+# If the `toolbar` package is installed, toolbar icons are automatically generated.
+#
+# Set these properties of your method to configure the icons:
+# * icon - name of the icon (Possible prepended with 'ion-' or 'fa-')
+# * title - The toolbar title
+# * hideIcon - set to true to hide the icon from the toolbar
+#
+
 @helloConsole = ->
   console.log 'Hello console'
   alert('Watch your console! (open with alt-cmd-i)')
@@ -12,7 +22,7 @@ this.helloFromJS = function() {
   console.log('Hello from JS');
   alert('Watch your console! (open with alt-cmd-i)');
 }
-this.helloFromJS.hideIcon = true // don't show this on the toolbar
+this.helloFromJS.hideIcon = true; // don't show this on the toolbar
 `
 
 # You can also call external commands:

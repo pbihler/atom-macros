@@ -1,6 +1,6 @@
 # The macros package
 
-Make atom really hackable.
+Make atom really hackable. Quickly, without writing a package...
 
 Fast and dynamic extension of atoms command palette. Adds all methods found in the `.atom/macros.coffee` file as atom commands.
 
