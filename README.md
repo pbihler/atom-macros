@@ -2,7 +2,7 @@
 
 Make atom really hackable. Quickly, without writing a package...
 
-Fast and dynamic extension of atom's command palette. Adds all methods defined by you on `this` in the `.atom/macros.coffee` file as atom commands: They can be executed using the command palette (`Shift-Cmd-P`) as `Macro: <Your Method Name>`, from the Menu `Packages`>`Macros`>`User-defined macros`, or add a shortcut in your kaymaps file:
+Fast and dynamic extension of atom's command palette. Adds all methods defined by you on `this` in the `.atom/macros.coffee` file as atom commands: They can be executed using the command palette (`Shift-Cmd-P`) as `Macro: <Your Method Name>`, from the menu `Packages`>`Macros`>`User-defined macros`, or add a shortcut in your keymaps file:
 ```coffee
 'atom-workspace':
   'ctrl-alt-shift-O': 'macros:openBrowser'
