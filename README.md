@@ -1,6 +1,6 @@
 # The atom-macros package
 
-Make atom really hackable. Quickly, without writing a package...
+Makes atom really hackable. Quickly, without writing a package...
 
 Fast and dynamic extension of atom's command palette. Adds all methods defined by you on `this` in the `.atom/macros.coffee` file as atom commands: They can be executed using the command palette (`Shift-Cmd-P`) as `Macro: <Your Method Name>`, from the menu `Packages`>`Macros`>`User-defined macros`, or add a shortcut in your keymaps file:
 ```coffee
@@ -51,7 +51,7 @@ this.helloFromJS.hideIcon = true // don't show this on the toolbar
 @openBrowser.icon = 'ion-earth'
 ```
 
-The makro definitions in atom are updated as soon as the file is edited.
+The macro definitions in atom are updated as soon as the file is changed, i.e. after saving.
 
 ### Predefined methods
 

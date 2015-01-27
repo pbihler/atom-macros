@@ -1,4 +1,6 @@
-## 0.2.0 - Bugfix in sample
+## 0.2.2 - Description improved
+
+## 0.2.1 - Bugfix in sample
 
 ## 0.2.0 - Predefined methods
 * Macros are added to the menu
