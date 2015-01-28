@@ -134,11 +134,14 @@ module.exports = Macros =
           icon = icon.substr(3)
           iconset = 'fa'
 
+        if method.icon.substr(0,8) == 'octicon-'
+          icon = icon.substr(8)
+          iconset = ''
+
         button = @toolbar.appendButton icon, commandName, method.title, iconset
         button.addClass('macroButton')
 
     @_addMacroMenu(macroMenu)
-
 
 
   _clearToolbar: ->
@@ -193,7 +196,19 @@ module.exports = Macros =
     @macroDisposable?.dispose()
     @macroDisposable = new CompositeDisposable
 
-    macros = EVAL(jsCode,path,{console:console,process:process,atom:atom,subscriptions:@macroDisposable},true)
+    macros = EVAL(
+      jsCode
+      path
+      {
+        console:console
+        subscriptions:@macroDisposable
+        setTimeout:window.setTimeout
+        clearTimeout:window.clearTimeout
+        setInterval:window.setInterval
+        clearInterval:window.clearInterval
+        JSON:JSON
+      },true)
+
     return macros
 
   _loadPrependFile: ->

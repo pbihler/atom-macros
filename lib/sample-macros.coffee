@@ -25,6 +25,13 @@ this.helloFromJS = function() {
 this.helloFromJS.hideIcon = true; // don't show this on the toolbar
 `
 
+# Call other atom commands (see https://gist.github.com/jcouyang/10816025)
+
+@['Save All'] = ->
+  dispatchWorkspaceCommand 'window:save-all'
+@saveAll.icon = 'fa-save'
+
+
 # You can also call external commands:
 
 @runShellCommand = ->
