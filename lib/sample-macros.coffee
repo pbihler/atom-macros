@@ -2,7 +2,7 @@
 #
 # If the `toolbar` package is installed, toolbar icons are automatically generated.
 #
-# Set these properties of your method to configure the icons:
+# Set these properties of your function to configure the icons:
 # * icon - name of the icon (Possible prepended with 'ion-' or 'fa-')
 # * title - The toolbar title
 # * hideIcon - set to true to hide the icon from the toolbar
@@ -24,6 +24,9 @@ this.helloFromJS = function() {
 }
 this.helloFromJS.hideIcon = true; // don't show this on the toolbar
 `
+
+# Every property on "this" which is not a function triggers a separator
+@sp1 = "----------------"
 
 # Call other atom commands (see https://gist.github.com/jcouyang/10816025)
 
@@ -49,6 +52,8 @@ this.helloFromJS.hideIcon = true; // don't show this on the toolbar
 
 @openBrowser.icon = 'ion-earth'
 
+# Give the next separator another name
+@sp2 = "----------------"
 
 @openThisFile = ->
   dispatchWorkspaceCommand 'macros:edit-macros'

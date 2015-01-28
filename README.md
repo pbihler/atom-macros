@@ -33,6 +33,9 @@ this.helloFromJS = function() {
 this.helloFromJS.hideIcon = true // don't show this on the toolbar
 `
 
+# Every property on "this" which is not a function triggers a separator
+@sp1 = "----------------"
+
 # You can also call external commands:
 
 @runShellCommand = ->

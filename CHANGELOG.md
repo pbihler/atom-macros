@@ -1,3 +1,5 @@
+## 0.3.0 - Separators added
+
 ## 0.2.2 - Description improved
 
 ## 0.2.1 - Bugfix in sample

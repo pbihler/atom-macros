@@ -58,9 +58,6 @@ module.exports = Macros =
       .then (pkg) =>
         @toolbar =  pkg.mainModule
 
-        if @toolbar.toolbarView.children().length > 0
-          @toolbar.appendSpacer()
-
         @updateMacros()
 
   openMacros: ->
@@ -108,8 +105,14 @@ module.exports = Macros =
 
     macroMenu = []
 
-    for name in @_getMacrosNames(macros)
-      method = macros[name]
+    for own name, method of @macros
+      unless typeof method == 'function'
+        @_appendSpacer() if @toolbar?
+        macroMenu.push {
+          'type': 'separator'
+        }
+        continue
+
       method.icon ?= 'ion-gear-a'
       method.title ?= name
       method.hideIcon ?= false
@@ -149,6 +152,16 @@ module.exports = Macros =
 
     for button in @toolbar.toolbarView.children('.macroButton')
       button.remove()
+
+    if @toolbar.toolbarView.children().length > 0
+      @_appendSpacer()
+
+
+  _appendSpacer: ->
+    return unless @toolbar?
+    @toolbar.appendSpacer()
+    spacer = @toolbar.toolbarView.children().last()
+    spacer.addClass('macroButton')
 
 
   _getMacrosNames: (macros) ->
