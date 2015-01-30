@@ -33,7 +33,7 @@ module.exports = Macros =
 
 
   deactivate: ->
-    PathWatcher.close()
+    @watch?.close()
     @subscriptions.dispose()
     @macroCommandSubscriptions?.dispose()
     @macroDisposable?.dispose()
@@ -46,7 +46,7 @@ module.exports = Macros =
     @updateMacros()
     macrosPath = @_getMacrosPath()
 
-    PathWatcher.watch macrosPath, (event) =>
+    @watch = PathWatcher.watch macrosPath, (event) =>
       if event == 'change'
         @updateMacros()
       if event == 'delete'
