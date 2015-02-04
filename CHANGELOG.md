@@ -1,3 +1,6 @@
+## 0.3.2 - Updated pathwatcher module
+* Compatibility with io.js / Atom.io 0.177
+
 ## 0.3.0 - Separators added
 
 ## 0.2.2 - Description improved
