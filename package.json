@@ -1,7 +1,7 @@
 {
   "name": "atom-macros",
   "main": "./lib/macros",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Quickly define commands to extend atom dynamically",
   "repository": "https://github.com/pbihler/atom-macros",
   "license": "MIT",
