@@ -1,3 +1,6 @@
+## 0.5.0 # Allowed title/icon to be functions
+* and auto-update of toolbar button after method call
+
 ## 0.4.0 - Added event handlers
 * onLoad / onUnload
 * fixed double loading on change of `macros.coffee`

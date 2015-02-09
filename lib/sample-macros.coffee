@@ -3,8 +3,8 @@
 # If the `toolbar` package is installed, toolbar icons are automatically generated.
 #
 # Set these properties of your function to configure the icons:
-# * icon - name of the icon (Possible prepended with 'ion-' or 'fa-')
-# * title - The toolbar title
+# * icon - name of the icon (Or a method returning the icon name, possibly prepended with 'ion-' or 'fa-')
+# * title - The toolbar title (or a method returning the title)
 # * hideIcon - set to true to hide the icon from the toolbar
 #
 
@@ -32,7 +32,7 @@ this.helloFromJS.hideIcon = true; // don't show this on the toolbar
 
 @['Save All'] = ->
   dispatchWorkspaceCommand 'window:save-all'
-@saveAll.icon = 'fa-save'
+@['Save All'].icon = 'fa-save'
 
 
 # You can also call external commands:
@@ -49,6 +49,12 @@ this.helloFromJS.hideIcon = true; // don't show this on the toolbar
 
 @openBrowser = ->
   open 'https://atom.io/packages/atom-macros'
+
+  # The toolbar button is updated after the method execution
+  # so you can change its properties:
+  @title = 'Do it again!'
+  @icon = 'ion-thumbsup'
+
 
 @openBrowser.icon = 'ion-earth'
 

@@ -6,6 +6,7 @@ FS = require 'fs'
 COFFEESCRIPT = require 'coffee-script'
 EVAL = require 'eval'
 PathWatcher = require 'pathwatcher'
+_ = require 'underscore-plus'
 
 MACROS_FILE = 'macros.coffee'
 PREPEND_FILE = 'prepend.coffee'
@@ -111,12 +112,11 @@ module.exports = Macros =
 
   addMacroCommands: (macros) ->
     @_clearToolbar()
-    @_clearMacroMenu()
 
     @macroCommandSubscriptions?.dispose()
     @macroCommandSubscriptions = new CompositeDisposable
 
-    macroMenu = []
+    @macroMenu = []
 
     for own name, method of @macros
       continue unless name?
@@ -124,43 +124,47 @@ module.exports = Macros =
 
       unless typeof method == 'function'
         @_appendSpacer() if @toolbar?
-        macroMenu.push {
+        @macroMenu.push {
           'type': 'separator'
         }
         continue
 
-      method.icon ?= 'ion-gear-a'
-      method.title ?= name
+      methodWrapper = do(method) => =>
+        method.call(method)
+        method.updateButton?()
+        title = method.title; if typeof title == 'function' then title = title()
+        if method._title != title
+          method._title = title
+          method._menuEntry.label = title
+          @_updateMacroMenu()
+
+
+      method.title ?= _.undasherize(name)
       method.hideIcon ?= false
 
       commandName = "macros:#{name}"
-      @macroCommandSubscriptions.add atom.commands.add 'atom-workspace', commandName, method
+      @macroCommandSubscriptions.add atom.commands.add 'atom-workspace', commandName, methodWrapper
 
-      macroMenu.push {
-        'label': method.title
+      title = method.title; if typeof title == 'function' then title = title()
+      method._title = title
+      method._menuEntry = {
+        'label': title
         'command': commandName
       }
 
+      @macroMenu.push method._menuEntry
+
       if @toolbar? && ! method.hideIcon
-        icon = method.icon
-        iconset = null
+        button = @toolbar.appendButton 'gear', methodWrapper
 
-        if method.icon.substr(0,4) == 'ion-'
-          icon = icon.substr(4)
-          iconset = 'ion'
-
-        if method.icon.substr(0,3) == 'fa-'
-          icon = icon.substr(3)
-          iconset = 'fa'
-
-        if method.icon.substr(0,8) == 'octicon-'
-          icon = icon.substr(8)
-          iconset = ''
-
-        button = @toolbar.appendButton icon, commandName, method.title, iconset
+        method.button = button
+        method._icon = 'icon-gear' # the default
         button.addClass('macroButton')
 
-    @_addMacroMenu(macroMenu)
+        method.updateButton = @_updateButton.bind(this,method,button)
+        method.updateButton()
+
+    @_updateMacroMenu()
 
 
   _clearToolbar: ->
@@ -171,6 +175,36 @@ module.exports = Macros =
 
     if @toolbar.toolbarView.children().length > 0
       @_appendSpacer()
+
+
+  _updateButton: (method,button) ->
+    icon = method.icon
+    if typeof icon == 'function'
+      icon = icon()
+
+
+    if icon?
+
+      if icon.substr(0,8) == 'octicon-'
+        icon = icon.substr(9)
+
+      if icon.substr(0,3) == 'fa-'
+        icon = "#{icon} fa"
+      else if icon.substr(0,4) == 'ion-'
+        icon = "#{icon} ion"
+      else if icon.substr(0,5) != 'icon-'
+        icon = "icon-#{icon}"
+
+      prevIcon = method._icon
+      if prevIcon?
+        button.removeClass prevIcon
+
+      button.addClass icon
+
+    method._icon = icon
+
+    title = method.title; if typeof title == 'function' then title = title()
+    button.prop 'title', title
 
 
   _appendSpacer: ->
@@ -184,6 +218,10 @@ module.exports = Macros =
     return [] unless macros?
     return Object.keys(macros).filter (name) -> typeof macros[name] == 'function'
 
+
+  _updateMacroMenu: ->
+    @_clearMacroMenu()
+    @_addMacroMenu(@macroMenu)
 
   _clearMacroMenu: ->
     @macroMenuDisposable?.dispose()
@@ -248,12 +286,22 @@ module.exports = Macros =
 
 
   _callOnLoadAsync: ->
-    result = @macros?.onLoad?()
+    result = undefined
+    try
+      result = @macros?.onLoad?()
+    catch error
+      console.error error.stack
+
     @_returnThenable(result)
 
 
   _callOnUnloadAsync: ->
-    result = @macros?.onUnload?()
+    result = undefined
+    try
+      result = @macros?.onUnload?()
+    catch error
+      console.error error.stack
+
     @_returnThenable(result)
 
 

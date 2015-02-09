@@ -35,6 +35,7 @@ Example of a `macros.coffee` file:
 
 @helloConsole.icon = 'ion-clipboard' # icon from https://atom.io/packages/toolbar#supported-icon-sets
 @helloConsole.title = 'Hello Console!'
+# icon and title can also be methods returning string
 
 
 
@@ -63,6 +64,11 @@ this.helloFromJS.hideIcon = true // don't show this on the toolbar
 
 @openBrowser = ->
   open 'https://atom.io/packages/atom-macros'
+
+  # The toolbar button is updated after the method execution
+  # so you can change its properties:
+  @title = 'Do it again!'
+  @icon = 'ion-thumbsup'
 
 @openBrowser.icon = 'ion-earth'
 
@@ -111,7 +117,7 @@ Returns the current project path
 ```
 
 #### `dispatchEditorCommand(command)`
-Dispatches a command on `'atom-text-editor'`
+Dispatches a command on `'atom-text-editor'` (as defined [here](https://github.com/atom/atom/blob/master/src/text-editor-element.coffee#L239-L345))
 ```coffee
 @lowercaseAll = ->
   dispatchEditorCommand 'core:select-all'

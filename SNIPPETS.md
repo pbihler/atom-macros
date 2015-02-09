@@ -136,26 +136,36 @@ Ingredients (as running at my office):
 The code snippet for your `macros.coffee`:
 ```coffeescript
 
-# Buttons on the toolbar /commands in the menu for manual triggering:
+atom.redLightOn = false # remember state globally
 
-@redLightOn = ->
-  exec 'gtfsi04 101100011100 00010001'
-@redLightOn.title = 'Ensable DoNotDisturb'
-@redLightOn.icon = 'ion-ios7-lightbulb-outline'
+# the control methods
 
-@redLightOff = ->
-  exec 'gtfsi04 101100011100 00000000'
-@redLightOff.title = 'Disable DoNotDisturb'
-@redLightOff.icon = 'ion-ios7-lightbulb'
+switchRedLightOn = ->
+  exec 'gtfsi04 101100111000 00010001'
+  atom.redLightOn = true
 
-@redLightSeparator = "----------------"
+switchRedLightOff = ->
+  exec 'gtfsi04 101100111000 00000000'
+  atom.redLightOn = false
+
+# Button on the toolbar / command in the menu for manual triggering:
+
+@toggleRedLight = ->
+  if atom.redLightOn then switchRedLightOff() else switchRedLightOn()
+
+@toggleRedLight.title =  ->
+  if atom.redLightOn then 'Switch Red Light off' else 'Switch Red Light on'
+
+@toggleRedLight.icon =  ->
+  if atom.redLightOn then 'ion-ios7-lightbulb-outline' else 'ion-ios7-lightbulb'
 
 # call on load/on unload:
 
 @onLoad = ->
-  @redLightOn()
+  switchRedLightOn()
 
 @onUnload = ->
-  @redLightOff()
+  switchRedLightOff()
+
 
 ```
