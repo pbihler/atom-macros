@@ -2,7 +2,9 @@
 
 Makes Atom really hackable. Quickly, without writing a package...
 
-Fast and dynamic extension of Atom's command palette. Adds all methods defined by you on `this` in the `.atom/macros.coffee` file as Atom commands: They can be executed using the command palette (`Shift-Cmd-P`) as `Macro: <Your Method Name>`, from the menu `Packages`>`Macros`>`User-defined macros`, or add a shortcut in your keymaps file:
+Fast and dynamic extension of Atom's command palette. Adds all methods defined by you on `this` in the `.atom/macros.coffee` file as Atom commands: They can be executed using the command palette (`Shift-Cmd-P`) as `Macro: <Your Method Name>`, or from the menu `Packages`>`Macros`>`User-defined macros`.
+
+You can also add a shortcut in your keymaps file:
 ```coffee
 'atom-workspace':
   'ctrl-alt-shift-O': 'macros:openBrowser'
@@ -74,7 +76,7 @@ this.helloFromJS.hideIcon = true // don't show this on the toolbar
 
 ```
 
-You find more examples in the [snippets](https://github.com/pbihler/atom-macros/blob/master/LICENSE.md) file.
+You find more examples in the [snippets](https://github.com/pbihler/atom-macros/blob/master/SNIPPETS.md) file.
 
 The macro definitions in Atom are updated as soon as the file is changed, i.e. after saving.
 
