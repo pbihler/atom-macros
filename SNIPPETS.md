@@ -161,8 +161,9 @@ switchRedLightOff = ->
 
 # call on load/on unload:
 
-@onLoad = ->
+@onLoad = =>
   switchRedLightOn()
+  @toggleRedLight.updateButton()
 
 @onUnload = ->
   switchRedLightOff()
