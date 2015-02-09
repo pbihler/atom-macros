@@ -71,6 +71,43 @@ openExtendedPath = (extendedPath) ->
 @openFileFromPathInClipboard.icon = 'fa-file'
 ```
 
+## Main toolbar
+
+Add Icons to the toolbar for the main Atom, commands, like [toolbar-main](https://atom.io/packages/toolbar-main) does:
+```coffeescript
+@tbMainSep1 = '-'
+
+@findInBuffer = -> dispatchWorkspaceCommand 'find-and-replace:show'
+@findInBuffer.icon = 'ion-search'
+@findInBuffer.title = 'Find in Buffer'
+
+@replaceInBuffer = -> dispatchWorkspaceCommand 'find-and-replace:show-replace'
+@replaceInBuffer.icon = 'ion-shuffle'
+@replaceInBuffer.title = 'Replace in Buffer'
+
+@tbMainSep2 = '-'
+
+@toggleCommandPalette = -> dispatchWorkspaceCommand 'command-palette:toggle'
+@toggleCommandPalette.icon = 'ion-navicon-round'
+@toggleCommandPalette.title = 'Toggle Command Palette'
+
+@openSettings = -> dispatchWorkspaceCommand 'settings-view:open'
+@openSettings.icon = 'ion-gear-a'
+@openSettings.title = 'Open Settings View'
+
+if atom.inDevMode()
+  @tbMainSep3 = '-'
+
+  @reloadWindow = -> dispatchWorkspaceCommand 'window:reload'
+  @reloadWindow.icon = 'ion-refresh'
+  @reloadWindow.title = 'Reload Window'
+
+  @toggleDeveloperTools = -> require('remote').getCurrentWindow().toggleDevTools()
+  @toggleDeveloperTools.icon = 'terminal'
+  @toggleDeveloperTools.title = 'Toggle Developer Tools'
+```
+
+
 
 ## "Do not disturb!"
 
