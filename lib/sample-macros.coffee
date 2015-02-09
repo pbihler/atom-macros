@@ -59,3 +59,12 @@ this.helloFromJS.hideIcon = true; // don't show this on the toolbar
   dispatchWorkspaceCommand 'macros:edit-macros'
 
 @openThisFile.title = 'Edit Macros'
+
+
+# Some event handlers are also provided:
+
+@onLoad = ->
+  undefined # called, when the macros have been loaded, i.e. when Atom started
+
+@onUnload = ->
+  undefined # called, when the macros have been unloaded, i.e. when Atom stopped

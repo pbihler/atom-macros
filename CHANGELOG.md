@@ -1,3 +1,7 @@
+## 0.4.0 - Added event handlers
+* onLoad / onUnload
+* fixed double loading on change of `macros.coffee`
+
 ## 0.3.2 - Updated pathwatcher module
 * Compatibility with io.js / Atom.io 0.177
 

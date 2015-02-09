@@ -1,8 +1,8 @@
 # The atom-macros package
 
-Makes atom really hackable. Quickly, without writing a package...
+Makes Atom really hackable. Quickly, without writing a package...
 
-Fast and dynamic extension of atom's command palette. Adds all methods defined by you on `this` in the `.atom/macros.coffee` file as atom commands: They can be executed using the command palette (`Shift-Cmd-P`) as `Macro: <Your Method Name>`, from the menu `Packages`>`Macros`>`User-defined macros`, or add a shortcut in your keymaps file:
+Fast and dynamic extension of Atom's command palette. Adds all methods defined by you on `this` in the `.atom/macros.coffee` file as Atom commands: They can be executed using the command palette (`Shift-Cmd-P`) as `Macro: <Your Method Name>`, from the menu `Packages`>`Macros`>`User-defined macros`, or add a shortcut in your keymaps file:
 ```coffee
 'atom-workspace':
   'ctrl-alt-shift-O': 'macros:openBrowser'
@@ -10,6 +10,13 @@ Fast and dynamic extension of atom's command palette. Adds all methods defined b
 
 ## Automatic toolbar generation
 Install the [toolbar module](https://atom.io/packages/toolbar) for automatic toolbar buttons.
+
+## Event Handler
+Methods named `on...` are not treated as commands, but rather as event handlers, automatically called by the package at the appropriate time.
+
+Currently, two event handlers are specified:
+* `onLoad` - Called, when the macros have been loaded, i.e. when Atom started (or you edited the macro definition file)
+* `onUnload` - Called, when the macros have been unloaded, i.e. when Atom stopped (or you edited the macro definition file)
 
 ## Example
 
@@ -52,9 +59,18 @@ this.helloFromJS.hideIcon = true // don't show this on the toolbar
   open 'https://atom.io/packages/atom-macros'
 
 @openBrowser.icon = 'ion-earth'
+
+# Some event handlers are also provided:
+
+@onLoad = ->
+  undefined # called, when the macros have been loaded, i.e. when Atom started
+
+@onUnload = ->
+  undefined # called, when the macros have been unloaded, i.e. when Atom stopped
+
 ```
 
-The macro definitions in atom are updated as soon as the file is changed, i.e. after saving.
+The macro definitions in Atom are updated as soon as the file is changed, i.e. after saving.
 
 ### Predefined methods
 

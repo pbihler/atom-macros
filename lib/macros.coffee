@@ -33,10 +33,12 @@ module.exports = Macros =
 
 
   deactivate: ->
-    @watch?.close()
-    @subscriptions.dispose()
-    @macroCommandSubscriptions?.dispose()
-    @macroDisposable?.dispose()
+    @_callOnUnloadAsync()
+    .then =>
+      @watch?.close()
+      @subscriptions.dispose()
+      @macroCommandSubscriptions?.dispose()
+      @macroDisposable?.dispose()
 
   serialize: ->
     undefined
@@ -48,17 +50,25 @@ module.exports = Macros =
 
     @watch = PathWatcher.watch macrosPath, (event) =>
       if event == 'change'
-        @updateMacros()
+        FS.stat macrosPath, (err,stat) =>
+          return unless stat?
+          # sometimes the event is triggered twice...
+          mTime = stat.mtime?.getTime()
+          return if mTime == @lastMTime
+          @lastMTime = mTime
+
+          @updateMacros()
+
       if event == 'delete'
         @clearToolbar()
         @macroCommandSubscriptions?.dispose()
-
 
     atom.packages.activatePackage('toolbar')
       .then (pkg) =>
         @toolbar =  pkg.mainModule
 
-        @updateMacros()
+        @addMacroCommands()
+
 
   openMacros: ->
     macrosPath = @_getMacrosPath()
@@ -86,13 +96,16 @@ module.exports = Macros =
         @_createTemplate(macrosPath)
 
       macros = @_getMacros(macrosPath)
-      @macros = macros
 
-      @addMacroCommands(macros)
+      @_callOnUnloadAsync()
+      .then =>
+        @macros = macros
 
-      return null
+        @addMacroCommands(macros)
+
+        return @_callOnLoadAsync()
     catch error
-      console.error error
+      console.error error.stack
       return error
 
 
@@ -106,6 +119,9 @@ module.exports = Macros =
     macroMenu = []
 
     for own name, method of @macros
+      continue unless name?
+      continue if name.substr(0,2) == 'on' # handlers are not added as macros
+
       unless typeof method == 'function'
         @_appendSpacer() if @toolbar?
         macroMenu.push {
@@ -229,3 +245,20 @@ module.exports = Macros =
       @prepend = FS.readFileSync(PATH.join(__dirname,PREPEND_FILE),'utf8')
     catch error
       console.error error
+
+
+  _callOnLoadAsync: ->
+    result = @macros?.onLoad?()
+    @_returnThenable(result)
+
+
+  _callOnUnloadAsync: ->
+    result = @macros?.onUnload?()
+    @_returnThenable(result)
+
+
+  _returnThenable: (result) ->
+    if typeof result?.then == 'function'
+      return result # It's a thenable
+
+    return then: (cb) => cb?()
