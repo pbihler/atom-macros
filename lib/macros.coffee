@@ -157,6 +157,7 @@ module.exports = Macros =
           icon = icon.substr(8)
           iconset = ''
 
+        console.dir {icon, iconset}
         button = @toolbar.appendButton icon, commandName, method.title, iconset
         button.addClass('macroButton')
 

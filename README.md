@@ -11,6 +11,10 @@ Fast and dynamic extension of Atom's command palette. Adds all methods defined b
 ## Automatic toolbar generation
 Install the [toolbar module](https://atom.io/packages/toolbar) for automatic toolbar buttons.
 
+## Demo
+
+![Demo](https://raw.github.com/pbihler/atom-macros/master/demo.gif)
+
 ## Event Handler
 Methods named `on...` are not treated as commands, but rather as event handlers, automatically called by the package at the appropriate time.
 
@@ -69,6 +73,8 @@ this.helloFromJS.hideIcon = true // don't show this on the toolbar
   undefined # called, when the macros have been unloaded, i.e. when Atom stopped
 
 ```
+
+You find more examples in the [snippets](https://github.com/pbihler/atom-macros/blob/master/LICENSE.md) file.
 
 The macro definitions in Atom are updated as soon as the file is changed, i.e. after saving.
 
