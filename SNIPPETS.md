@@ -75,6 +75,20 @@ openExtendedPath = (extendedPath) ->
 
 Add Icons to the toolbar for the main Atom, commands, like [toolbar-main](https://atom.io/packages/toolbar-main) does:
 ```coffeescript
+@tbMainSep0 = '-'
+
+@newFile = -> dispatchWorkspaceCommand 'application:new-file'
+@newFile.icon = 'ion-document'
+@newFile.title = 'New File'
+
+@openFile = -> dispatchWorkspaceCommand 'application:open-file'
+@openFile.icon = 'ion-folder'
+@openFile.title = 'Open...'
+
+@saveFile = -> dispatchWorkspaceCommand 'core:save'
+@saveFile.icon = 'ion-archive'
+@saveFile.title = 'Save'
+
 @tbMainSep1 = '-'
 
 @findInBuffer = -> dispatchWorkspaceCommand 'find-and-replace:show'
