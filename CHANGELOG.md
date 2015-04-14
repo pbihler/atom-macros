@@ -1,4 +1,6 @@
-## 0.5.0 # Allowed title/icon to be functions
+## 0.5.1 - Update pathwatcher reference
+
+## 0.5.0 - Allowed title/icon to be functions
 * and auto-update of toolbar button after method call
 
 ## 0.4.0 - Added event handlers
